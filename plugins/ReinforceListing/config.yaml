@@ -1,0 +1,46 @@
+id: ReinforceListing
+name: ReinforceListing
+version: 1.0
+
+list_properties:
+    entry:
+        title:
+            sub_fields:
+                - class: excerpt
+                  label: Excerpt
+                  display: optional
+    page:
+        filename:
+            label: Basename
+            html: >
+                sub {
+                    my $prop = shift;
+                    my ( $obj, $app, $opts ) = @_;
+                    return MT::Util::encode_html($obj->basename . '.html');
+                }
+        fullpath:
+            label: 'フルパス'
+            html: >
+                sub {
+                    my $prop = shift;
+                    my ( $obj, $app, $opts ) = @_;
+                    my $folder = $obj->folder;
+                    if ($folder) {
+                        my @folders = ();
+                        while (1) {
+                            if ($folder->parent == 0) {
+                                push (@folders, $folder);
+                                last;
+                            }
+                            push (@folders, $folder);
+                            $folder = MT::Folder->load($folder->parent);
+                        }
+                        @folders = reverse @folders;
+                        my @folder_labels = ();
+                        for my $folder (@folders) {
+                            push (@folder_labels, $folder->label);
+                        }
+                        return MT::Util::encode_html(join('/', @folder_labels));
+                    }
+                    return '(root)';
+                }

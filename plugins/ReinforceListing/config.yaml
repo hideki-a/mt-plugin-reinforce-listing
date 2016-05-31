@@ -16,7 +16,7 @@ list_properties:
                 sub {
                     my $prop = shift;
                     my ( $obj, $app, $opts ) = @_;
-                    return MT::Util::encode_html($obj->basename . '.html');
+                    return MT::Util::encode_html($obj->basename);
                 }
         fullpath:
             label: 'フルパス'

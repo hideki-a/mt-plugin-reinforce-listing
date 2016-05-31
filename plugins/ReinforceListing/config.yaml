@@ -9,7 +9,13 @@ list_properties:
                 - class: excerpt
                   label: Excerpt
                   display: optional
+        keywords:
+            label: 'キーワード'
+            auto: 1
     page:
+        keywords:
+            label: 'キーワード'
+            auto: 1
         filename:
             label: Basename
             html: >
